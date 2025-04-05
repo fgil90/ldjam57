@@ -13,3 +13,10 @@ config_version=5
 config/name="Always Dig Straight Down"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=648
+window/size/viewport_height=1152
+window/size/resizable=false
+window/handheld/orientation=1
