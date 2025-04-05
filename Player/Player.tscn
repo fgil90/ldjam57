@@ -15,19 +15,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"dig",
-"speed": 5.0
+"speed": 2.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tok1r"]
 size = Vector2(32, 32)
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_3qydi")
+dig_speed = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tok1r")
 animation = &"dig"
-frame_progress = 0.407842
+autoplay = "dig"
+frame_progress = 0.993416
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tok1r")
+
+[node name="Camera2D" type="Camera2D" parent="."]

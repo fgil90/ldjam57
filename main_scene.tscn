@@ -6,6 +6,6 @@
 [node name="Main Scene" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_0f027")]
-position = Vector2(324, 576)
+position = Vector2(209, -20)
 
-[node name="Blocks" parent="." instance=ExtResource("2_2c62f")]
+[node name="TileMapLayer" parent="." instance=ExtResource("2_2c62f")]
