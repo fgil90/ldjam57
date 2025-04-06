@@ -7,19 +7,24 @@ class Block:
 	var gold_yield
 	var coords 
 	
-	func _init(_hp, _defense, _gold_yield):
-		hp = _hp
-		defense = _defense
-		gold_yield = _gold_yield
+	func _init(tile_data:TileData, tile_coords:Vector2i):
+		hp = tile_data.get_custom_data('hp')
+		defense = tile_data.get_custom_data('defense')
+		gold_yield = tile_data.get_custom_data('gold_yield')
+		coords = tile_coords
 
 @onready var player: Player = $"../Player"
 @export var noise: FastNoiseLite
 var block_dict = {}
+var look_up_table = [Vector2i(0,0), Vector2i(1,0), Vector2i(0,1), Vector2i(1,1)]
+@onready var display_label = preload('res://Blocks/damage_display.tscn')
 
 func _ready():
 	player.dig.connect(_on_dig)
 	var map_width = 16
-	var map_height = 30
+	var map_height = 1000
+	randomize()
+	noise.seed = randi()
 	generate_tilemap(map_width, map_height)
 	
 func generate_tilemap(width:int, height:int):
@@ -34,31 +39,25 @@ func sample_random_tile(i,j):
 	value *= value
 	value *= 4
 	value = floori(value)
-	
-	match value:
-		0:
-			return Vector2i(0,0)
-		1:
-			return Vector2i(1,0)
-		2:
-			return Vector2i(0,1)
-		3:
-			return Vector2i(1,1)
+	return look_up_table[value]
+
+func display_damage(damage, pos):
+	var damage_display_instance = display_label.instantiate()
+	damage_display_instance.global_position = pos
+	damage_display_instance.text = str(damage)
+	add_child(damage_display_instance)
+	print(damage_display_instance)
 
 func _on_dig(tile_collider_rid):
 	var current_tile
 	var tile_coords = get_coords_for_body_rid(tile_collider_rid)
 	if tile_collider_rid not in block_dict:
 		var tile_data = get_cell_tile_data(tile_coords)
-		var hp = tile_data.get_custom_data('hp')
-		var defense = tile_data.get_custom_data('defense')
-		var gold_yield = tile_data.get_custom_data('gold_yield')
-		
-		var block = Block.new(hp, defense, gold_yield)
-		block.coords = tile_coords
+		var block = Block.new(tile_data, tile_coords)
 		block_dict.get_or_add(tile_collider_rid, block)
 		
 	current_tile = block_dict[tile_collider_rid]
+	
 	var actual_damage = player.damage - current_tile.defense
 	if actual_damage < 0: actual_damage = 0
 	
@@ -69,4 +68,5 @@ func _on_dig(tile_collider_rid):
 	else:
 		current_tile.hp -= actual_damage
 	
+	display_damage(actual_damage, map_to_local(tile_coords))
 	#'print('Current Tile: \n Position: {0}\n hp: {1} \n'.format([current_tile.coords, current_tile.hp]))

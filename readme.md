@@ -6,7 +6,7 @@
 [X] Player with sprite, properties and dig animation
 [X] Blocks with sprite, properties and break mechanic
 [X] Autodig mechanic
-[] Block damage display
+[X] Block damage display
 [] Upgrades and Upgrade Menu
 [] Main Menu
 [] Event System

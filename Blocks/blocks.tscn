@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://wnchwhugoh03"]
 
-[ext_resource type="Texture2D" uid="uid://p4f8nmgp1b37" path="res://Blocks/New Piskel.png" id="1_6eqes"]
+[ext_resource type="Texture2D" uid="uid://p4f8nmgp1b37" path="res://Blocks/blocks_atlas.png" id="1_6eqes"]
 [ext_resource type="Script" uid="uid://1whhdx0elrt8" path="res://Blocks/blocks.gd" id="2_kadlk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bwy1f"]
