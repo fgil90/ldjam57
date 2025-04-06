@@ -23,13 +23,14 @@ size = Vector2(32, 32)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_3qydi")
-dig_speed = 10.0
+damage = 100
+dig_speed = 100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tok1r")
 animation = &"dig"
 autoplay = "dig"
-frame_progress = 0.993416
+frame_progress = 0.0456955
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tok1r")
